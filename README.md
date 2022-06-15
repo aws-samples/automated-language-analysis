@@ -1,6 +1,14 @@
 # automated-language-analysis
 This repository contains a CDK project that deploys a fully automated language analysis pipeline.
 
+## In this page
+
+- [Analysis deep dive](#AnalysisDeepDive)
+- [UseCases](#UseCases)
+- [Prerequisites](#Prerequisites)
+- [Security](#Security)
+- [License](#License)
+
 ## Analysis deep dive
 
 The application performs a language analysis of the loaded documents divided into the following categories:
@@ -17,8 +25,8 @@ This part of the analysis calculates:
 This one is calculated in base of different parameters:
 
 #### Variability
-	- TTR: text-to-word ratio: ratio of distinct words in a document to the total number of words in a document.
-	- MLTD: measurement of textual lexical diversity.
+- TTR: text-to-word ratio: ratio of distinct words in a document to the total number of words in a document.
+- MLTD: measurement of textual lexical diversity.
 
 ### Errors
 
