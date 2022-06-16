@@ -186,7 +186,7 @@ jq -r '.Parameter.Value')"
                                                 compute_environment_name='Metrics-OnDemand-CE',
                                                 compute_resources=batch.ComputeResources(
                                                     type=batch.ComputeResourceType.ON_DEMAND,
-                                                    allocation_strategy=batch.AllocationStrategy.SPOT_CAPACITY_OPTIMIZED,
+                                                    allocation_strategy=batch.AllocationStrategy.BEST_FIT_PROGRESSIVE,
                                                     minv_cpus=0,
                                                     maxv_cpus=32,
                                                     vpc=vpc
@@ -271,7 +271,7 @@ jq -r '.Parameter.Value')"
                                                 compute_environment_name='Errors-OnDemand-CE',
                                                 compute_resources=batch.ComputeResources(
                                                     type=batch.ComputeResourceType.ON_DEMAND,
-                                                    allocation_strategy=batch.AllocationStrategy.SPOT_CAPACITY_OPTIMIZED,
+                                                    allocation_strategy=batch.AllocationStrategy.BEST_FIT_PROGRESSIVE,
                                                     minv_cpus=0,
                                                     maxv_cpus=16,
                                                     vpc=vpc
