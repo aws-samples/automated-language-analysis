@@ -3,11 +3,11 @@ This repository contains a CDK project that deploys a fully automated language a
 
 ## In this page
 
-- [Analysis deep dive](#AnalysisDeepDive)
-- [UseCases](#UseCases)
-- [Prerequisites](#Prerequisites)
-- [Security](#Security)
-- [License](#License)
+- [Analysis deep dive](#analysis-deep-dive)
+- [Use cases](#use-cases)
+- [Prerequisites](#prerequisites)
+- [Security](#security)
+- [License](#license)
 
 ## Analysis deep dive
 
@@ -27,6 +27,10 @@ This one is calculated in base of different parameters:
 #### Variability
 - TTR: text-to-word ratio: ratio of distinct words in a document to the total number of words in a document.
 - MLTD: measurement of textual lexical diversity.
+
+#### Volume
+- Amount of words in each document
+- Most repeated nouns, adjectives, adverbs and verbs.
 
 ### Errors
 
@@ -49,7 +53,7 @@ Select the variant that best suits your use case to view its documentation and d
 
 ## Prerequisites
 
-The application is deployed to your AWS account via CDK, so you will need to install it in order to continue with the deployment. Execute the following command to install it:
+The application is deployed to your AWS account via AWS CDK, so you will need to install it in order to continue with the deployment. Execute the following command to install CDK:
 
 ```bash
 npm install -g aws-cdk
