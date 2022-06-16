@@ -185,7 +185,7 @@ jq -r '.Parameter.Value')"
         on_demand_ce = batch.ComputeEnvironment(self, 'MetricsOnDemandCE',
                                                 compute_environment_name='Metrics-OnDemand-CE',
                                                 compute_resources=batch.ComputeResources(
-                                                    type=batch.ComputeResourceType.SPOT,
+                                                    type=batch.ComputeResourceType.ON_DEMAND,
                                                     allocation_strategy=batch.AllocationStrategy.SPOT_CAPACITY_OPTIMIZED,
                                                     minv_cpus=0,
                                                     maxv_cpus=32,
@@ -260,7 +260,7 @@ jq -r '.Parameter.Value')"
                                                type=batch.ComputeResourceType.SPOT,
                                                allocation_strategy=batch.AllocationStrategy.SPOT_CAPACITY_OPTIMIZED,
                                                minv_cpus=0,
-                                               maxv_cpus=128,
+                                               maxv_cpus=32,
                                                vpc=vpc
                                            ))
 
@@ -270,10 +270,10 @@ jq -r '.Parameter.Value')"
         on_demand_ce = batch.ComputeEnvironment(self, 'ErrorsOnDemandCE',
                                                 compute_environment_name='Errors-OnDemand-CE',
                                                 compute_resources=batch.ComputeResources(
-                                                    type=batch.ComputeResourceType.SPOT,
+                                                    type=batch.ComputeResourceType.ON_DEMAND,
                                                     allocation_strategy=batch.AllocationStrategy.SPOT_CAPACITY_OPTIMIZED,
                                                     minv_cpus=0,
-                                                    maxv_cpus=32,
+                                                    maxv_cpus=16,
                                                     vpc=vpc
                                                 ))
 
