@@ -46,7 +46,7 @@ The following type of errors are calculated:
 
 Depending on your needs and use case, there are two variants of the application that you can deploy: the first one indexes documents in Amazon OpenSearch service to offer text-based search. The second bypasses Amazon OpenSearch service and makes use of Amazon QuickSight for displaying the results.
 
-- [Automated language analysis with text search capabilities](#)
+- [Automated language analysis with text search capabilities](https://github.com/aws-samples/automated-language-analysis/tree/main/text-search-capabilities)
 - Automated language analysis with QuickSight integration (under development)
 
 Select the variant that best suits your use case to view its documentation and deployment instructions.
