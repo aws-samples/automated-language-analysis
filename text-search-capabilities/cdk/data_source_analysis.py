@@ -238,7 +238,7 @@ jq -r '.Parameter.Value')"
                                          retry_attempts=1,
                                          container=batch.JobDefinitionContainer(
                                              environment={'AWS_REGION': NestedStack.of(self).region},
-                                             vcpus=4,
+                                             vcpus=2,
                                              memory_limit_mib=4096,
                                              execution_role=role,
                                              job_role=role,
@@ -322,7 +322,7 @@ jq -r '.Parameter.Value')"
                                          retry_attempts=1,
                                          container=batch.JobDefinitionContainer(
                                              environment={'AWS_REGION': NestedStack.of(self).region},
-                                             vcpus=4,
+                                             vcpus=2,
                                              memory_limit_mib=4096,
                                              execution_role=role,
                                              job_role=role,
