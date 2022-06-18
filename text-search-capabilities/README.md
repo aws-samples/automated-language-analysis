@@ -42,7 +42,7 @@ The following sections provide an explanation of each of the phases of the analy
 
 ## Deployment instructions
 
-The following steps assume that you have Python installed in your local machine.
+The following steps assume that you have Python and [venv](https://docs.python.org/3/library/venv.html) installed in your local machine.
 
 ### 1. Installing and configuring the AWS CLI
 
@@ -94,8 +94,7 @@ You can read more about this process [here](https://docs.aws.amazon.com/cdk/v2/g
 
 When deploying you need to specify the value for two parameters:
 
-- **language**: language of the data sources to analyse. It has to be one of `ca`, `zh`, `da`, `nl`, `en`, `fr`, `de`, `el`, `it`,
-                             `ja`, `lt`, `mk`, `xx`, `nb`, `pl`, `pt`, `ro`, `ru`, `es`. The default value is `en`.
+- **language**: language of the data sources to analyse. It has to be one of `ca`, `zh`, `da`, `nl`, `en`, `fr`, `de`, `el`, `it`, `ja`, `pl`, `pt`, `ro`, `ru`, `es`. The default value is `en`.
 - **analysisMode**: The mode to use when running spaCy. By choosing `Efficiency`, the language analysis will be faster. If you choose `Accuracy`, the results will be more accurate but the analysis will take longer to complete. The default value is `Efficiency`.
 
 ```bash
@@ -103,3 +102,10 @@ cdk deploy --parameters language=<language> --parameters analysisMode=<analysis_
 ```
 
 The deployment process will take roughly **35 minutes** to complete.
+
+### 6. Cleaning up
+
+To delete all the resources created by CDK:
+
+1. Navigate to the **CloudFormation** section in the AWS console.
+2. Select the stack named **LanguageAnalysis** and click on **Delete**.

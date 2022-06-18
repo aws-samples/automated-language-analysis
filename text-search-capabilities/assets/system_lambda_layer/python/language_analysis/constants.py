@@ -38,7 +38,7 @@ CONFIG_PARAM_OPENSEARCH_DOMAIN_ENDPOINT = '/{}/opensearchDomainEndpoint'.format(
 SPACY_MODE_ACCURACY = 'Accuracy'
 SPACY_MODE_EFFICIENCY = 'Efficiency'
 SPACY_SUPPORTED_LANGUAGES = ['ca', 'zh', 'da', 'nl', 'en', 'fr', 'de', 'el', 'it',
-                             'ja', 'lt', 'mk', 'xx', 'nb', 'pl', 'pt', 'ro', 'ru', 'es']
+                             'ja', 'pl', 'pt', 'ro', 'ru', 'es']
 
 # -------------------- OPENSEARCH ---------------------- #
 INDEX_DOCUMENTS = 'documents'
