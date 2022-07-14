@@ -22,6 +22,9 @@ from aws_cdk import (
     aws_stepfunctions_tasks as step_functions_tasks,
     aws_events as events,
     aws_events_targets as events_targets,
+    aws_lambda as _lambda,
+    CustomResource,
+    Stack
 )
 
 from constructs import Construct
@@ -403,6 +406,32 @@ jq -r '.Parameter.Value')"
         Tags.of(rule).add(tags.TAG_ENVIRONMENT, tags.CURRENT_ENVIRONMENT)
         Tags.of(rule).add(tags.TAG_MODULE, tags.MODULE_DATA_SOURCE_ANALYSIS)
 
+    def __create_auto_delete_ecr_images_custom_resource(self, metrics_ecr_repository: ecr.Repository,
+                                                        errors_ecr_repository: ecr.Repository):
+        with open('assets/func_auto_delete_ecr_images/index.py') as fd:
+            code = fd.read()
+
+        function = _lambda.Function(self, 'AutoDeleteECRImagesLambda',
+                                    function_name='autoDeleteECRImages',
+                                    code=_lambda.Code.from_inline(code),
+                                    runtime=_lambda.Runtime.PYTHON_3_9,
+                                    handler='index.handler',
+                                    timeout=Duration.minutes(2))
+
+        function.add_to_role_policy(iam.PolicyStatement(
+            effect=iam.Effect.ALLOW,
+            actions=['ecr:DeleteRepository'],
+            resources=[metrics_ecr_repository.repository_arn, errors_ecr_repository.repository_arn]
+        ))
+
+        CustomResource(self, 'AutoDeleteECRImagesCustomResource',
+                       service_token=function.function_arn,
+                       properties={
+                           'registry_id': Stack.of(self).account,
+                           'repository_names': [metrics_ecr_repository.repository_name,
+                                                errors_ecr_repository.repository_name]
+                       })
+
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -415,20 +444,21 @@ jq -r '.Parameter.Value')"
 
         metrics_pipeline = self.__create_metrics_dev_tools()
 
-        metrics_queue, metrics_definition = self.__create_metrics_aws_batch_components(
-            metrics_pipeline.ecr_repository,
-            vpc,
-            indexed_data_sources_bucket,
-            self.analysis_results_bucket,
-            config_files_bucket)
+        metrics_queue, metrics_definition = self.__create_metrics_aws_batch_components(metrics_pipeline.ecr_repository,
+                                                                                       vpc,
+                                                                                       indexed_data_sources_bucket,
+                                                                                       self.analysis_results_bucket,
+                                                                                       config_files_bucket)
 
         errors_pipeline = self.__create_errors_dev_tools()
 
-        errors_queue, errors_definition = self.__create_errors_aws_batch_components(
-            errors_pipeline.ecr_repository,
-            vpc,
-            indexed_data_sources_bucket,
-            self.analysis_results_bucket)
+        errors_queue, errors_definition = self.__create_errors_aws_batch_components(errors_pipeline.ecr_repository,
+                                                                                    vpc,
+                                                                                    indexed_data_sources_bucket,
+                                                                                    self.analysis_results_bucket)
 
         state_machine = self.__create_state_machine(metrics_queue, metrics_definition, errors_queue, errors_definition)
         self.__create_state_machine_trigger_rule(indexed_data_sources_bucket, state_machine)
+
+        self.__create_auto_delete_ecr_images_custom_resource(metrics_pipeline.ecr_repository,
+                                                             errors_pipeline.ecr_repository)
